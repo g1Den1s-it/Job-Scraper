@@ -6,7 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 from src.database import Base, SQL_DATABASE_URL
-from src.scraper.models import Job, Tag, Table # noqa
+from src.scraper.models import Job, Tag # noqa
 
 config = context.config
 

@@ -23,7 +23,8 @@ class AsyncDatabaseSessionManager:
         self._session = async_sessionmaker(
             self._engine, expire_on_commit=False, class_= AsyncSession
         )
-
+    def get_engine(self):
+        return self._engine
 
     @asynccontextmanager
     async def connect(self) -> AsyncIterator[AsyncConnection]:
@@ -56,7 +57,11 @@ async_session_manager = AsyncDatabaseSessionManager(SQL_DATABASE_URL)
 
 Base = declarative_base()
 
+
 async def get_db_session():
     async with async_session_manager.session() as session:
         yield session
-        
+    
+
+def get_engine():
+    return async_session_manager.get_engine()
